@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>bundleid</key>
+	<string></string>
+	<key>connections</key>
+	<dict>
+		<key>F4AAC67D-BFA9-49D2-BB1D-0A9E2DD54F3B</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>EA3B9403-331B-4CD0-9107-EF1AB9528B41</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
+	</dict>
+	<key>createdby</key>
+	<string>SWC</string>
+	<key>description</key>
+	<string>Shows recently downloaded files</string>
+	<key>disabled</key>
+	<false/>
+	<key>name</key>
+	<string>Recent Downloads</string>
+	<key>objects</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>escaping</key>
+				<integer>0</integer>
+				<key>keyword</key>
+				<string>recentdownloads</string>
+				<key>runningsubtext</key>
+				<string>Reading downloads folder</string>
+				<key>script</key>
+				<string>define(BASE_DIR, getenv('HOME') . '/Downloads');
+$file_pattern = "{query}";
+if ( $file_pattern ) {
+	$file_pattern = trim($file_pattern);
+	$file_pattern = preg_quote($file_pattern);
+	$file_pattern = '/' . str_replace(' ', '.', $file_pattern) . '/i';
+}
+define(FILE_PATTERN, $file_pattern);
+//get files with data added
+$dir_contents = explode("\n", shell_exec('mdls -name kMDItemFSName -name kMDItemDateAdded ~/Downloads/*'));
+//remove empty lines
+$dir_contents = array_filter($dir_contents);
+//create files array
+$files = array();
+for ( $i=0; $i &lt; count ($dir_contents); $i++ ) {
+	$file = array();
+	for ( $j=0; $j &lt; 2; $j++ ) {
+		$data = explode('=', $dir_contents[$i]);
+		if ( trim($data[0]) == 'kMDItemDateAdded' ) {
+			$file['date_added'] = trim($data[1]);
+		} else {
+			$file['name'] = trim($data[1], ' "');
+		}
+		if ( $j == 0 ) {
+			$i++;
+		}
+	}
+	$files[] = $file;
+}
+//filter out non matching files
+if ( $file_pattern ) {
+	$files = array_filter($files, function($a) { return preg_match(FILE_PATTERN, $a['name']); });
+}
+//sort newest files to the top
+date_default_timezone_set('UTC');
+array_multisort(
+    array_map( function($a) { return strtotime($a['date_added']); }, $files ),
+    SORT_NUMERIC,
+    SORT_DESC, // newest first, or `SORT_ASC` for oldest first
+    $files
+);
+//send xml to Alfred
+$items = new SimpleXMLElement("&lt;items&gt;&lt;/items&gt;");
+if ( count($files) == 0 ) {
+	$c = $items-&gt;addChild('item');
+	$c-&gt;addAttribute('arg', 'No Match');
+	$c-&gt;addAttribute('valid', 'no');
+	$c-&gt;arg = 'No Match';
+	$c-&gt;addAttribute('type', 'file');
+	$c-&gt;title = 'No Match';
+	$c-&gt;subtitle = '';
+	$c-&gt;icon = 'icon.png';
+	$c-&gt;icon-&gt;addAttribute('type', 'default');
+}
+foreach( $files as $file ) {
+	$basename = $file['name'];
+	$fullpath = BASE_DIR . '/' . $basename;
+	if ( substr($basename, 0, 1) != '.' ) {
+		$c = $items-&gt;addChild( 'item' );
+		$c-&gt;addAttribute('arg', $fullpath);
+		$c-&gt;arg = $fullpath;
+		$c-&gt;addAttribute('type', 'file');
+		$c-&gt;title = $basename;
+		$c-&gt;subtitle = $fullpath;
+		$c-&gt;icon = $fullpath;
+		$c-&gt;icon-&gt;addAttribute('type', 'fileicon');
+	}
+}
+echo $items-&gt;asXML();</string>
+				<key>subtext</key>
+				<string>Recent Downloads</string>
+				<key>title</key>
+				<string>Recent Downloads</string>
+				<key>type</key>
+				<integer>1</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>F4AAC67D-BFA9-49D2-BB1D-0A9E2DD54F3B</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict/>
+			<key>type</key>
+			<string>alfred.workflow.action.openfile</string>
+			<key>uid</key>
+			<string>EA3B9403-331B-4CD0-9107-EF1AB9528B41</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+	</array>
+	<key>readme</key>
+	<string></string>
+	<key>uidata</key>
+	<dict>
+		<key>EA3B9403-331B-4CD0-9107-EF1AB9528B41</key>
+		<dict>
+			<key>ypos</key>
+			<real>10</real>
+		</dict>
+		<key>F4AAC67D-BFA9-49D2-BB1D-0A9E2DD54F3B</key>
+		<dict>
+			<key>ypos</key>
+			<real>10</real>
+		</dict>
+	</dict>
+	<key>webaddress</key>
+	<string></string>
+</dict>
+</plist>

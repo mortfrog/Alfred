@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>bundleid</key>
+	<string>com.arbesfeld.pandora-client</string>
+	<key>connections</key>
+	<dict>
+		<key>7E7E3478-7A23-4F00-A42B-AA3677460303</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>68A217AD-6682-4D78-BE51-4826F91FF810</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
+		<key>9031E9DA-15E7-49E9-929A-DF6475B2DF99</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>9876A674-D534-487E-A61D-7015AE8CFA49</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
+		<key>9876A674-D534-487E-A61D-7015AE8CFA49</key>
+		<array/>
+		<key>9E886695-0893-4027-A9FC-A7E99C2588ED</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>ABA7B3F3-5FEB-43AD-AEA9-037211F4E937</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
+		<key>B16A53CF-F50C-4302-98B0-FEE16613D343</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>73BB30FA-3A90-4FFC-BB0A-ACF9C88F8F82</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
+		<key>F373096D-FC42-463F-87DE-426423C6C7D5</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>32A8EDD6-77F6-40E7-A6D8-9D7FEAF49ABB</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
+	</dict>
+	<key>createdby</key>
+	<string>Matthew Arbesfeld</string>
+	<key>description</key>
+	<string>Workflow for interfacing with the Pandora client</string>
+	<key>disabled</key>
+	<false/>
+	<key>name</key>
+	<string>Pandora</string>
+	<key>objects</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>applescript</key>
+				<string>on alfred_script(q)
+tell application "Safari"	set winlist to every window	set winmatchlist to {}	set tabmatchlist to {}	set tabnamematchlist to {}	repeat with win in winlist		set ok to true		try			set tablist to every tab of win		on error errmsg			--display dialog name of win as string			set ok to false		end try		if ok then			repeat with t in tablist				if "Pandora One" is in (name of t as string) then					set end of winmatchlist to win					set end of tabmatchlist to t					set end of tabnamematchlist to (id of win as string) &amp; "." &amp; (index of t as string) &amp; ".  " &amp; (name of t as string)					tell t to do JavaScript "document.getElementsByClassName(\"skipButton\")[0].click();"				end if			end repeat		end if	end repeatend tell
+end alfred_script</string>
+				<key>cachescript</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.applescript</string>
+			<key>uid</key>
+			<string>9876A674-D534-487E-A61D-7015AE8CFA49</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>2</integer>
+				<key>keyword</key>
+				<string>pann</string>
+				<key>subtext</key>
+				<string>Next song in Pandora</string>
+				<key>text</key>
+				<string>pann</string>
+				<key>withspace</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>9031E9DA-15E7-49E9-929A-DF6475B2DF99</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>2</integer>
+				<key>keyword</key>
+				<string>panp</string>
+				<key>subtext</key>
+				<string>Play or pause a song!</string>
+				<key>text</key>
+				<string>Pandora - Play/Pause</string>
+				<key>withspace</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>F373096D-FC42-463F-87DE-426423C6C7D5</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>applescript</key>
+				<string>on alfred_script(q)
+tell application "Safari"	set winlist to every window	set winmatchlist to {}	set tabmatchlist to {}	set tabnamematchlist to {}	repeat with win in winlist		set ok to true		try			set tablist to every tab of win		on error errmsg			--display dialog name of win as string			set ok to false		end try		if ok then			repeat with t in tablist				if "Pandora One" is in (name of t as string) then					set end of winmatchlist to win					set end of tabmatchlist to t					set end of tabnamematchlist to (id of win as string) &amp; "." &amp; (index of t as string) &amp; ".  " &amp; (name of t as string)					tell t to do JavaScript "var play = document.getElementsByClassName(\"playButton\")[0]; var pause = document.getElementsByClassName(\"pauseButton\")[0]; play.style.display=='none' ? pause.click() : play.click();"				end if			end repeat		end if	end repeatend tell
+end alfred_script</string>
+				<key>cachescript</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.applescript</string>
+			<key>uid</key>
+			<string>32A8EDD6-77F6-40E7-A6D8-9D7FEAF49ABB</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>applescript</key>
+				<string>on alfred_script(q)
+tell application "Safari"	set winlist to every window	set winmatchlist to {}	set tabmatchlist to {}	set tabnamematchlist to {}	repeat with win in winlist		set ok to true		try			set tablist to every tab of win		on error errmsg			--display dialog name of win as string			set ok to false		end try		if ok then			repeat with t in tablist				if "Pandora One" is in (name of t as string) then					set end of winmatchlist to win					set end of tabmatchlist to t					set end of tabnamematchlist to (id of win as string) &amp; "." &amp; (index of t as string) &amp; ".  " &amp; (name of t as string)					tell t to do JavaScript "document.getElementsByClassName(\"thumbUpButton\")[0].click();"				end if			end repeat		end if	end repeatend tell
+end alfred_script</string>
+				<key>cachescript</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.applescript</string>
+			<key>uid</key>
+			<string>73BB30FA-3A90-4FFC-BB0A-ACF9C88F8F82</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>2</integer>
+				<key>keyword</key>
+				<string>panu</string>
+				<key>subtext</key>
+				<string>Upvote a song in Pandora</string>
+				<key>text</key>
+				<string>panu</string>
+				<key>withspace</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>B16A53CF-F50C-4302-98B0-FEE16613D343</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>2</integer>
+				<key>keyword</key>
+				<string>panv</string>
+				<key>subtext</key>
+				<string>Downvote a song in Pandora</string>
+				<key>text</key>
+				<string>panv</string>
+				<key>withspace</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>7E7E3478-7A23-4F00-A42B-AA3677460303</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>applescript</key>
+				<string>on alfred_script(q)
+tell application "Safari"	set winlist to every window	set winmatchlist to {}	set tabmatchlist to {}	set tabnamematchlist to {}	repeat with win in winlist		set ok to true		try			set tablist to every tab of win		on error errmsg			--display dialog name of win as string			set ok to false		end try		if ok then			repeat with t in tablist				if "Pandora One" is in (name of t as string) then					set end of winmatchlist to win					set end of tabmatchlist to t					set end of tabnamematchlist to (id of win as string) &amp; "." &amp; (index of t as string) &amp; ".  " &amp; (name of t as string)					tell t to do JavaScript "document.getElementsByClassName(\"thumbDownButton\")[0].click();"				end if			end repeat		end if	end repeatend tell
+end alfred_script</string>
+				<key>cachescript</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.applescript</string>
+			<key>uid</key>
+			<string>68A217AD-6682-4D78-BE51-4826F91FF810</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>plusspaces</key>
+				<false/>
+				<key>url</key>
+				<string>http://pandora.com</string>
+				<key>utf8</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.openurl</string>
+			<key>uid</key>
+			<string>ABA7B3F3-5FEB-43AD-AEA9-037211F4E937</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>2</integer>
+				<key>keyword</key>
+				<string>panl</string>
+				<key>subtext</key>
+				<string>Let the music begin!</string>
+				<key>text</key>
+				<string>Launch Pandora</string>
+				<key>withspace</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>9E886695-0893-4027-A9FC-A7E99C2588ED</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+	</array>
+	<key>readme</key>
+	<string></string>
+	<key>uidata</key>
+	<dict>
+		<key>32A8EDD6-77F6-40E7-A6D8-9D7FEAF49ABB</key>
+		<dict>
+			<key>ypos</key>
+			<real>180</real>
+		</dict>
+		<key>68A217AD-6682-4D78-BE51-4826F91FF810</key>
+		<dict>
+			<key>ypos</key>
+			<real>420</real>
+		</dict>
+		<key>73BB30FA-3A90-4FFC-BB0A-ACF9C88F8F82</key>
+		<dict>
+			<key>ypos</key>
+			<real>300</real>
+		</dict>
+		<key>7E7E3478-7A23-4F00-A42B-AA3677460303</key>
+		<dict>
+			<key>ypos</key>
+			<real>420</real>
+		</dict>
+		<key>9031E9DA-15E7-49E9-929A-DF6475B2DF99</key>
+		<dict>
+			<key>ypos</key>
+			<real>60</real>
+		</dict>
+		<key>9876A674-D534-487E-A61D-7015AE8CFA49</key>
+		<dict>
+			<key>ypos</key>
+			<real>60</real>
+		</dict>
+		<key>9E886695-0893-4027-A9FC-A7E99C2588ED</key>
+		<dict>
+			<key>ypos</key>
+			<real>540</real>
+		</dict>
+		<key>ABA7B3F3-5FEB-43AD-AEA9-037211F4E937</key>
+		<dict>
+			<key>ypos</key>
+			<real>540</real>
+		</dict>
+		<key>B16A53CF-F50C-4302-98B0-FEE16613D343</key>
+		<dict>
+			<key>ypos</key>
+			<real>300</real>
+		</dict>
+		<key>F373096D-FC42-463F-87DE-426423C6C7D5</key>
+		<dict>
+			<key>ypos</key>
+			<real>180</real>
+		</dict>
+	</dict>
+	<key>webaddress</key>
+	<string>www.arbesfeld.com</string>
+</dict>
+</plist>
