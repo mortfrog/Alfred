@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>bundleid</key>
+	<string></string>
+	<key>connections</key>
+	<dict>
+		<key>3159164D-0113-4816-B172-1C61F2F99123</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>C2B52CFE-5195-4B93-9A3A-5564CE080E37</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
+		<key>C2B52CFE-5195-4B93-9A3A-5564CE080E37</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>B3170ACF-482B-46BD-BFD0-B4917B2F9AE0</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>565129AA-EC9C-44BF-915B-7FCBDAD014E2</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
+	</dict>
+	<key>createdby</key>
+	<string>Brian Gonzalez</string>
+	<key>description</key>
+	<string>Generates sample text using loripsum.net</string>
+	<key>disabled</key>
+	<false/>
+	<key>name</key>
+	<string>Lorem Ipsum</string>
+	<key>objects</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>escaping</key>
+				<integer>63</integer>
+				<key>script</key>
+				<string>lipsum =  [ "Lorem ipsum dolor sit amet, minim molestie argumentum est at, pri legere torquatos instructior ex. Vis id odio atomorum oportere, quem modo fabellas sit at, dicat semper est ne. Apeirian detraxit pri eu. No solum accusam has. Ius ne harum mundi clita, eu pro tation audiam.",
+
+"Sed dicit necessitatibus in, id posse nominati eos. Ea vel dictas facilisi adipiscing, verear phaedrum sed ei, omnes oblique sanctus mea ex. Iudico pertinacia constituam cu eos. Te vel fugit libris, libris nemore no pri, graece oportere sea ea. Amet omnium epicuri cum te, sonet dignissim abhorreant pro ea, mei petentium constituam ad. Suscipit gloriatur necessitatibus has et.",
+
+"Eum at omnis omnesque percipitur, est ei melius scriptorem. At copiosae placerat vim, pro at sumo argumentum theophrastus, periculis theophrastus per et. No voluptatum contentiones eum, dolorem perfecto cu duo, duo eros nonumes ea. An has quaeque vivendum, iriure constituam ne nam. Electram maiestatis nec no.",
+
+"Id vis sumo voluptatum, his an pericula erroribus, ad pri laudem verear. Per idque aperiri ea, illud accusam imperdiet cu sed. Sea vitae deserunt ei, vim at erant vituperata. Ea idque congue vocibus mea, virtute lobortis deseruisse mea ut. Et populo prompta pertinax ius. Ut eam audire regione, audiam interesset consequuntur eu eos.",
+
+"In alterum vivendum intellegat eam. In idque legere persius sit, solum dissentiunt ius ea. Qui nonumy petentium at, an tota illud insolens eam, qui sint detraxit at. Ius id audire iuvaret lobortis, mei mutat commodo mnesarchum ne. Homero ponderum ne has. Et vim nemore scaevola, luptatum pertinax instructior no eam, at sale choro solet nam.",
+
+"At cum velit repudiare persequeris. At mea harum scripserit, sit graece ignota gloriatur an, ad forensibus omittantur quo. Ex veritus patrioque eum, eius diceret molestiae an sea. No veritus placerat pertinacia vix, eu mel error delicata, ad eos doctus veritus. Mundi forensibus pri ne, ei detracto scaevola scripserit mea. Nam meis vituperata ut, ei alia saperet ius, omnes labore recusabo mea an.",
+
+"Sit ea porro urbanitas comprehensam, persius corpora mei ne. Duo te nihil mollis phaedrum, pro eu nulla conceptam scriptorem. Elitr disputationi id usu, cum tollit possit suavitate at, te adhuc fabellas torquatos pro. Vivendo perpetua vim te, ne vel reque qualisque. Magna scripta vel et, quot aliquip quaerendum eu est. Et abhorreant elaboraret per.",
+
+"Ut esse dissentiet vel, menandri legendos vel ex. Ex ius dolorum comprehensam, nisl recusabo ea sit, exerci definitionem sea et. Eu sit vero audire maiestatis, at nec posse argumentum. Bonorum eruditi adipisci cum ei, recusabo euripidis pri id. Et eam petentium expetenda suavitate. Sale insolens at sit, vix ea movet clita.",
+
+"Vis in everti tritani luptatum, libris singulis ad usu. Vide atqui saepe quo no. Case dicit intellegat cum ea, ei pro veniam interesset. Suas mazim pro ei, affert altera postea id eum. Omnis debet delicata cu quo, eum te tollit facilisis, ne vel causae cetero adolescens.",
+
+"Etiam melius suscipit mea in, ea ipsum delicata eam, veri accusamus scribentur te nec. Ex soluta corrumpit euripidis est. Unum appetere eu vel. Cum et evertitur abhorreant intellegam, ad sit commodo tibique interpretaris. Iudico consul voluptaria his no, ignota reprehendunt definitionem te mea." ]
+
+query = "{query}".split(' ')
+
+lines = query[0].to_i
+lines = lines.zero? ? 1 : lines
+
+lipsum = query[1] ? lipsum.shuffle : lipsum
+
+output = ""
+
+count = 0
+lines.times do |i|
+  output &lt;&lt; lipsum[count]
+  output &lt;&lt; "\n\n"
+  count += 1
+  count = 0 if count &gt;= lipsum.length
+end
+
+puts output
+</string>
+				<key>type</key>
+				<integer>2</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>C2B52CFE-5195-4B93-9A3A-5564CE080E37</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>keyword</key>
+				<string>li</string>
+				<key>text</key>
+				<string>Generate Lorem Ipsum</string>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>3159164D-0113-4816-B172-1C61F2F99123</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>lastpathcomponent</key>
+				<false/>
+				<key>onlyshowifquerypopulated</key>
+				<false/>
+				<key>output</key>
+				<integer>0</integer>
+				<key>removeextension</key>
+				<false/>
+				<key>sticky</key>
+				<false/>
+				<key>text</key>
+				<string>Your text has been copied to the clipboard.</string>
+				<key>title</key>
+				<string>Lorem Ipsum</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.notification</string>
+			<key>uid</key>
+			<string>B3170ACF-482B-46BD-BFD0-B4917B2F9AE0</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>autopaste</key>
+				<true/>
+				<key>clipboardtext</key>
+				<string></string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.clipboard</string>
+			<key>uid</key>
+			<string>565129AA-EC9C-44BF-915B-7FCBDAD014E2</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+	</array>
+	<key>readme</key>
+	<string>OVERVIEW:
+
+This workflow implements the Loripsum.net API to produce lorem ipsum text to your specification.
+
+
+USAGE:
+
+Use the keyword 'li' followed by an integer to get that many paragraphs. Result will be copied to the clipboard and pasted into the foremost application.
+
+You may also follow the number with the letter 'w' to get words instead.
+
+Example: "li 5 w" (produces "Lorem ipsum dolor sit amet.")
+
+
+ACKNOWLEDGEMENTS:
+
+This workflow is entirely dependent on Loripsum.net and can generate no content without the API made freely available by Loripsum.net.  All praise be to Loripsum.net</string>
+	<key>uidata</key>
+	<dict>
+		<key>3159164D-0113-4816-B172-1C61F2F99123</key>
+		<dict>
+			<key>ypos</key>
+			<real>10</real>
+		</dict>
+		<key>565129AA-EC9C-44BF-915B-7FCBDAD014E2</key>
+		<dict>
+			<key>ypos</key>
+			<real>130</real>
+		</dict>
+		<key>B3170ACF-482B-46BD-BFD0-B4917B2F9AE0</key>
+		<dict>
+			<key>ypos</key>
+			<real>10</real>
+		</dict>
+		<key>C2B52CFE-5195-4B93-9A3A-5564CE080E37</key>
+		<dict>
+			<key>ypos</key>
+			<real>10</real>
+		</dict>
+	</dict>
+	<key>webaddress</key>
+	<string></string>
+</dict>
+</plist>
